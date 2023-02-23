@@ -1,0 +1,72 @@
+version: '3.3'
+services:
+  blog-client-service:
+    build:
+      context: ./client
+      dockerfile: dockerfile
+    image: blog-client
+    container_name: blog-client-service
+    ports: 
+      - "3000:3000"
+    networks: 
+      - blog-app-network
+
+  blog-comments-service:
+    build:
+      context: ./comments
+      dockerfile: dockerfile
+    image: blog-comments
+    container_name: blog-comments-service
+    ports: 
+      - "4001:4001"
+    networks: 
+      - blog-app-network
+
+  blog-event-bus-service:
+    build:
+      context: ./event-bus
+      dockerfile: dockerfile
+    image: blog-event-bus
+    container_name: blog-event-bus-service
+    ports: 
+      - "4005:4005"
+    networks: 
+      - blog-app-network
+
+  blog-moderation-service:
+    build:
+      context: ./moderation
+      dockerfile: dockerfile
+    image: blog-moderation
+    container_name: blog-moderation-service
+    ports: 
+      - "4003:4003"
+    networks: 
+      - blog-app-network
+
+  blog-posts-service:
+    build:
+      context: ./posts
+      dockerfile: dockerfile
+    image: blog-posts
+    container_name: blog-posts-service
+    ports:
+      - "4000:4000"
+    networks: 
+      - blog-app-network
+
+  blog-query-service:
+    build:
+      context: ./query
+      dockerfile: dockerfile
+    image: blog-query
+    container_name: blog-query-service
+    ports:
+      - "4002:4002"
+    networks: 
+      - blog-app-network
+
+     
+networks:
+  blog-app-network:
+    driver: bridge
